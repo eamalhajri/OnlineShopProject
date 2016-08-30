@@ -1,0 +1,78 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context=".DetailedActivity">
+
+    <ImageView
+        android:id="@+id/detailed_image"
+        android:layout_width="match_parent"
+        android:contentDescription="@string/image"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true" />
+
+    <TextView
+        android:id="@+id/detailed_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="10dp"
+        android:paddingTop="10dp"
+        android:text="@string/name"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:text="@string/weight_detailed" />
+
+        <TextView
+            android:id="@+id/detailed_weight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:text="@string/weight" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:text="@string/price_detailed" />
+
+        <TextView
+            android:id="@+id/detailed_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:text="@string/price" />
+    </LinearLayout>
+
+            <TextView
+                android:id="@+id/detailed_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="10dp"
+                android:paddingTop="10dp"
+                android:text="@string/description" />
+
+        <TextView
+            android:id="@+id/detailed_categoryId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/categoryId"
+            android:visibility="gone" />
+
+    </LinearLayout>

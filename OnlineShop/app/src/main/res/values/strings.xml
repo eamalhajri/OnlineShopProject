@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">Online Shop Beta</string>
+    <string name="action_settings">Settings</string>
+
+    <string-array name="titles">
+        <item>Салаты</item>
+        <item>Супы</item>
+        <item>Десерты</item>
+        <item>Пицца</item>
+    </string-array>
+
+    <string-array name="drawerTitles">
+        <item>Каталог</item>
+        <item>Контакты</item>
+    </string-array>
+
+    <string name="hello_blank_fragment">hello</string>
+    <string name="open_drawer">Open Drawer</string>
+    <string name="close_drawer">Close Drawer</string>
+    <string name="action_contacts">Контакты</string>
+    <string name="number"><a href="+375298517023"> +375 (29) 851-70-23</a></string>
+    <string name="address"><a href="г. Минск, ул. Петра Глебки 5">г. Минск, ул. Петра Глебки 5</a></string>
+    <string name="lat">53.908757</string>
+    <string name="lng">27.469890</string>
+    <string name="address_cafe_1">г. Минск, ул. Петра Глебки, 5</string>
+    <string name="address_cafe_2">г. Минск, ул. Веры Хоружей, 8 </string>
+    <string name="address_cafe_3">г. Минск, ул. Воронянского, 31</string>
+    <string name="number_str">Телефон: </string>
+    <string name="imageIcon">imageIcon</string>
+    <string name="name">name</string>
+    <string name="weight">weight</string>
+    <string name="description">description</string>
+    <string name="price">price</string>
+    <string name="adress_top">Адреса: </string>
+    <string name="categoryId">catedoryId</string>
+    <string name="weight_detailed">Вес: </string>
+    <string name="price_detailed">Цена: </string>
+    <string name="description_detailed">Описание: </string>
+    <string name="image">Картинка</string>
+</resources>
