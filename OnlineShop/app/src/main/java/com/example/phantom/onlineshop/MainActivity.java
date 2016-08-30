@@ -3,10 +3,7 @@ package com.example.phantom.onlineshop;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
-import android.content.ContentValues;
 import android.content.res.Configuration;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -24,7 +21,6 @@ import android.widget.ListView;
 import com.example.phantom.onlineshop.fragments.ContactsFragment;
 import com.example.phantom.onlineshop.fragments.TopFragment;
 import com.example.phantom.onlineshop.models.PostList;
-import com.example.phantom.onlineshop.other.DatabaseHelper;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -39,7 +35,6 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class MainActivity extends FragmentActivity implements AdapterView.OnItemClickListener {
-
     private int currentPosition = 0;
     private ListView drawerList;
     private DrawerLayout drawerLayout;
@@ -49,11 +44,9 @@ public class MainActivity extends FragmentActivity implements AdapterView.OnItem
     OkHttpClient client = new OkHttpClient();
     private ProgressDialog pd;
     private static ArrayList<PostList> postLists;
-    private static Bundle args;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initDrawer();
@@ -74,7 +67,6 @@ public class MainActivity extends FragmentActivity implements AdapterView.OnItem
         postLists = new ArrayList<>();
         pd = ProgressDialog.show(MainActivity.this, "please wait", "downloading...");
         new Thread(r).start();
-
     }
 
     private void initActionBar() {
@@ -104,6 +96,7 @@ public class MainActivity extends FragmentActivity implements AdapterView.OnItem
                 handler.sendEmptyMessage(0);
             } catch (IOException e) {
                 Log.d(TAG, "IOException: " + e.toString());
+                pd.dismiss();
             }
         }
     };
@@ -146,11 +139,11 @@ public class MainActivity extends FragmentActivity implements AdapterView.OnItem
                             if (tagName.equalsIgnoreCase("name")) {
                                 name = tagValue;
                             } else if (tagName.equalsIgnoreCase("picture")) {
-                               imageUrl = tagValue;
+                                imageUrl = tagValue;
                             } else if (tagName.equalsIgnoreCase("price")) {
                                 price = tagValue;
                             } else if (tagName.equalsIgnoreCase("description")) {
-                               description = tagValue;
+                                description = tagValue;
                             } else if (tagName.equalsIgnoreCase("param")) {
                                 if (tagValue != null && tagValue.contains("гр")) {
                                     weight = tagValue;
@@ -280,8 +273,8 @@ public class MainActivity extends FragmentActivity implements AdapterView.OnItem
 
     public static ArrayList<PostList> sortArray(String categoryId, ArrayList<PostList> postLists) {
         ArrayList<PostList> posts = new ArrayList<>();
-        for (int i = 0; i <postLists.size() ; i++) {
-            if((postLists.get(i).getCategoryId()).equals(categoryId)) {
+        for (int i = 0; i < postLists.size(); i++) {
+            if ((postLists.get(i).getCategoryId()).equals(categoryId)) {
                 posts.add(postLists.get(i));
             }
         }
