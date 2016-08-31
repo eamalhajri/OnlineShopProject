@@ -1,6 +1,7 @@
 package com.example.phantom.onlineshop.adapters;
 
 import android.graphics.drawable.Drawable;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -26,9 +27,15 @@ public class MainScreenAdapter extends RecyclerView.Adapter<MainScreenAdapter.Vi
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private CardView cardView;
-        public ViewHolder(CardView v) {
+        private        ImageView imageView;
+        private TextView textView;
+
+
+        public ViewHolder(View v) {
             super(v);
-            cardView = v;
+            cardView = (CardView) v;
+            imageView = (ImageView) cardView.findViewById(R.id.info_image);
+            textView = (TextView) cardView.findViewById(R.id.info_text);
         }
     }
 
@@ -45,22 +52,13 @@ public class MainScreenAdapter extends RecyclerView.Adapter<MainScreenAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
-        CardView cardView;
-        ImageView imageView;
-        TextView textView;
+    public void onBindViewHolder(MainScreenAdapter.ViewHolder holder, final int position) {
         Drawable drawable;
-        cardView = holder.cardView;
-
-        imageView = (ImageView) cardView.findViewById(R.id.info_image);
-        textView = (TextView) cardView.findViewById(R.id.info_text);
-
+        CardView cardView = holder.cardView;
         drawable = cardView.getResources().getDrawable(images[position]);
-        imageView.setImageDrawable(drawable);
-        imageView.setContentDescription(names[position]);
-
-        textView.setText(names[position]);
-
+        holder.imageView.setImageDrawable(drawable);
+        holder.imageView.setContentDescription(names[position]);
+        holder.textView.setText(names[position]);
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
