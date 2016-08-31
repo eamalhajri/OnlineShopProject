@@ -2,7 +2,7 @@ package com.example.phantom.onlineshop.models;
 
 public class PostList {
 
-        private String name, weight, price, imageUrl, description, categoryId;
+    private String name, weight, price, imageUrl, description, categoryId;
 
     public PostList(String name, String weight, String price, String imageUrl, String description, String categoryId) {
         this.name = name;
@@ -14,36 +14,36 @@ public class PostList {
     }
 
     public String getName() {
-            return name;
-        }
+        return name;
+    }
 
-        public void setName(String name) {
-            this.name = name;
-        }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-        public String getWeight() {
-            return weight;
-        }
+    public String getWeight() {
+        return weight;
+    }
 
-        public void setWeight(String weight) {
-            this.weight = weight;
-        }
+    public void setWeight(String weight) {
+        this.weight = weight;
+    }
 
-        public String getPrice() {
-            return price;
-        }
+    public String getPrice() {
+        return price;
+    }
 
-        public void setPrice(String price) {
-            this.price = price;
-        }
+    public void setPrice(String price) {
+        this.price = price;
+    }
 
-        public String getImageUrl() {
-            return imageUrl;
-        }
+    public String getImageUrl() {
+        return imageUrl;
+    }
 
-        public void setImageUrl(String imageUrl) {
-            this.imageUrl = imageUrl;
-        }
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
     public String getDescription() {
         return description;

@@ -1,5 +1,6 @@
 package com.example.phantom.onlineshop;
 
+import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
@@ -55,14 +56,6 @@ public class MainActivity extends FragmentActivity implements AdapterView.OnItem
         startLoadingData();
     }
 
-    private void initPosition(Bundle savedInstanceState) {
-        if (savedInstanceState != null) {
-            currentPosition = savedInstanceState.getInt("position");
-        } else {
-            selectItem(0);
-        }
-    }
-
     private void startLoadingData() {
         postLists = new ArrayList<>();
         pd = ProgressDialog.show(MainActivity.this, "please wait", "downloading...");
@@ -70,8 +63,11 @@ public class MainActivity extends FragmentActivity implements AdapterView.OnItem
     }
 
     private void initActionBar() {
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setHomeButtonEnabled(true);
+        ActionBar actionBar = getActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeButtonEnabled(true);
+        }
     }
 
     private Handler handler = new Handler() {
@@ -196,16 +192,18 @@ public class MainActivity extends FragmentActivity implements AdapterView.OnItem
         drawerLayout.addDrawerListener(drawerToggle);
     }
 
+    private void initPosition(Bundle savedInstanceState) {
+        if (savedInstanceState != null) {
+            currentPosition = savedInstanceState.getInt("position");
+        } else {
+            selectItem(0);
+        }
+    }
+
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt("position", currentPosition);
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        boolean drawerOpen = drawerLayout.isDrawerOpen(drawerList);
-        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -222,20 +220,7 @@ public class MainActivity extends FragmentActivity implements AdapterView.OnItem
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (drawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        switch (item.getItemId()) {
-            case R.id.action_contacts:
-                ContactsFragment contactsFragment = new ContactsFragment();
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.content_frame, contactsFragment, contactsFragment.getClass().getSimpleName())
-                        .addToBackStack(contactsFragment.getClass().getSimpleName())
-                        .commitAllowingStateLoss();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+        return drawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
     @Override

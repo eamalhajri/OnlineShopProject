@@ -21,6 +21,7 @@ public class CategoryListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         RelativeLayout layout = (RelativeLayout) inflater.inflate(R.layout.fragment_salad, container, false);
+
         Bundle bundle = getArguments();
         String catId = bundle.getString("ID");
 

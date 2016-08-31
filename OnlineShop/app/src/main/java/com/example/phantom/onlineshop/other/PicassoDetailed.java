@@ -5,7 +5,7 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
-public class PicassoDetailedClient {
+public class PicassoDetailed {
 
     public static void downloadImage(Context context, String imageUrl, ImageView img) {
         Picasso.with(context).load(imageUrl).into(img);

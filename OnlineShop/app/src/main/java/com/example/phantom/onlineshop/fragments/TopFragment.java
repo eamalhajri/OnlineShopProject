@@ -3,6 +3,8 @@ package com.example.phantom.onlineshop.fragments;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.ContentValues;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,7 +28,8 @@ public class TopFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         RelativeLayout layout = (RelativeLayout) inflater.inflate(R.layout.fragment_top, container, false);
-        RecyclerView recyclerView = (RecyclerView) layout.findViewById(R.id.top_recycler);
+
+        Context context = getActivity();
         String[] categoryNames = new String[NUMBERS_OF_CATEGORIES];
         for (int i = 0; i < NUMBERS_OF_CATEGORIES; i++) {
             categoryNames[i] = Category.categories[i].getName();
@@ -35,9 +38,11 @@ public class TopFragment extends Fragment {
         for (int i = 0; i < NUMBERS_OF_CATEGORIES; i++) {
             categoryImages[i] = Category.categories[i].getImdResId();
         }
+
+        RecyclerView recyclerView = (RecyclerView) layout.findViewById(R.id.top_recycler);
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(layoutManager);
-        CategoryAdapter adapter = new CategoryAdapter(categoryNames, categoryImages);
+        CategoryAdapter adapter = new CategoryAdapter(categoryNames, categoryImages, context);
         recyclerView.setAdapter(adapter);
         adapter.setListener(new CategoryAdapter.Listener() {
             public void onClick(int position) {

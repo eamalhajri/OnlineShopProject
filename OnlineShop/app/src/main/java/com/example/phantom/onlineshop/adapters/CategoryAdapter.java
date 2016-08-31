@@ -1,6 +1,8 @@
 package com.example.phantom.onlineshop.adapters;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 import com.example.phantom.onlineshop.R;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
+    private Context context;
     private String[] names;
     private int[] images;
     private Listener listener;
@@ -26,7 +29,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private CardView cardView;
-        private        ImageView imageView;
+        private ImageView imageView;
         private TextView textView;
 
 
@@ -38,9 +41,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         }
     }
 
-    public CategoryAdapter(String[] names, int[] images) {
+    public CategoryAdapter(String[] names, int[] images, Context context) {
         this.names = names;
         this.images = images;
+        this.context = context;
     }
 
     @Override
@@ -52,9 +56,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(CategoryAdapter.ViewHolder holder, final int position) {
-        Drawable drawable;
         CardView cardView = holder.cardView;
-        drawable = cardView.getResources().getDrawable(images[position]);
+        Drawable drawable = ContextCompat.getDrawable(context, images[position]);
         holder.imageView.setImageDrawable(drawable);
         holder.imageView.setContentDescription(names[position]);
         holder.textView.setText(names[position]);

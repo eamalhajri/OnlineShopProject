@@ -32,7 +32,7 @@
     <string name="description">description</string>
     <string name="price">price</string>
     <string name="adress_top">Адреса: </string>
-    <string name="categoryId">catedoryId</string>
+    <string name="categoryId">categoryId</string>
     <string name="weight_detailed">Вес: </string>
     <string name="price_detailed">Цена: </string>
     <string name="description_detailed">Описание: </string>
