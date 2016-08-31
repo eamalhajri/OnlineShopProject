@@ -17,12 +17,12 @@ import com.example.phantom.onlineshop.models.PostList;
 
 import java.util.ArrayList;
 
-public class RVCustomAdapter extends RecyclerView.Adapter<RVCustomAdapter.RecyclerViewHolders> {
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.RecyclerViewHolders> {
     private ArrayList<PostList> postLists;
     private Context context;
     private Listener listener;
 
-    public RVCustomAdapter(Context context, ArrayList<PostList> postLists) {
+    public RecyclerViewAdapter(Context context, ArrayList<PostList> postLists) {
         this.context = context;
         this.postLists = postLists;
     }
@@ -56,7 +56,7 @@ public class RVCustomAdapter extends RecyclerView.Adapter<RVCustomAdapter.Recycl
     }
 
     @Override
-    public void onBindViewHolder(RVCustomAdapter.RecyclerViewHolders holder, final int position) {
+    public void onBindViewHolder(RecyclerViewAdapter.RecyclerViewHolders holder, final int position) {
             CardView cardView = holder.cardView;
             holder.name.setText(postLists.get(position).getName());
             holder.weight.setText(postLists.get(position).getWeight());

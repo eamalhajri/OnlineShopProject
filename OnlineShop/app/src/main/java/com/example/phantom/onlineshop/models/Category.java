@@ -1,17 +1,20 @@
 package com.example.phantom.onlineshop.models;
 
-import com.example.phantom.onlineshop.other.Constants;
 import com.example.phantom.onlineshop.R;
 
 public class Category {
+    public static final String CATEGORY_SOUP = "Супы";
+    public static final String CATEGORY_PIZZA = "Пицца";
+    public static final String CATEGORY_DESSERT = "Десерты";
+    public static final String CATEGORY_SALAD = "Салаты";
     private String name;
     private int imdResId;
 
     public static final Category[] categories = {
-            new Category(Constants.CATEGORY_SALAD, R.drawable.salad),
-            new Category(Constants.CATEGORY_SOUP, R.drawable.soup),
-            new Category(Constants.CATEGORY_DESSERT, R.drawable.dessert),
-            new Category(Constants.CATEGORY_PIZZA, R.drawable.pizza),
+            new Category(CATEGORY_SALAD, R.drawable.salad),
+            new Category(CATEGORY_SOUP, R.drawable.soup),
+            new Category(CATEGORY_DESSERT, R.drawable.dessert),
+            new Category(CATEGORY_PIZZA, R.drawable.pizza),
     };
 
     public Category(String name, int imgResId) {

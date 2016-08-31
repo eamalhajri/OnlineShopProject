@@ -1,7 +1,6 @@
 package com.example.phantom.onlineshop.adapters;
 
 import android.graphics.drawable.Drawable;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,7 +11,7 @@ import android.widget.TextView;
 
 import com.example.phantom.onlineshop.R;
 
-public class MainScreenAdapter extends RecyclerView.Adapter<MainScreenAdapter.ViewHolder> {
+public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
     private String[] names;
     private int[] images;
     private Listener listener;
@@ -39,20 +38,20 @@ public class MainScreenAdapter extends RecyclerView.Adapter<MainScreenAdapter.Vi
         }
     }
 
-    public MainScreenAdapter(String[] names, int[] images) {
+    public CategoryAdapter(String[] names, int[] images) {
         this.names = names;
         this.images = images;
     }
 
     @Override
-    public MainScreenAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public CategoryAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         CardView cv = (CardView) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.card_captioned_image, parent, false);
         return new ViewHolder(cv);
     }
 
     @Override
-    public void onBindViewHolder(MainScreenAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(CategoryAdapter.ViewHolder holder, final int position) {
         Drawable drawable;
         CardView cardView = holder.cardView;
         drawable = cardView.getResources().getDrawable(images[position]);
