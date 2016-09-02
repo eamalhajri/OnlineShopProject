@@ -1,57 +1,43 @@
 package com.example.phantom.onlineshop.models;
 
 import org.simpleframework.xml.Attribute;
+import org.simpleframework.xml.Namespace;
 import org.simpleframework.xml.Root;
 import org.simpleframework.xml.Text;
 
 @Root(name = "param", strict = false)
+@Attribute(required = false, name = "name")
 public class Param {
-    @Attribute(required = false, name = "Вес")
+
+    @Attribute(required = false, name = "name")
+    @Namespace(reference = "Вес")
     public static String weight;
-    @Text(required = false, empty = "")
-    private static String weight_text;
-    @Attribute(required = false, name = "Диаметр")
+    @Text(required = false)
+    private static String weightText;
+
+    @Namespace(reference = "Диаметр")
     public String diameter;
-    @Attribute(required = false, name = "Каллорийность")
+
+    @Namespace(reference = "Каллорийность")
     public String calories;
-    @Attribute(required = false, name = "Белки")
+
+    @Namespace(reference = "Белки")
     public String protein;
-    @Attribute(required = false, name = "Жиры")
+
+    @Namespace(reference = "Жиры")
     public String fat;
-    @Attribute(required = false, name = "Углеводы")
+
+    @Namespace(reference = "Углеводы")
     public String carbohydrate;
-    @Attribute(required = false, name = "Кол-во")
+
+    @Namespace(reference = "Кол-во")
     public String count;
 
-    public static String getWeight_text() {
-        return weight_text;
+    public static String getWeightText() {
+        return weightText;
     }
 
     public static String getWeight() {
         return weight;
-    }
-
-    public String getDiameter() {
-        return diameter;
-    }
-
-    public String getCalories() {
-        return calories;
-    }
-
-    public String getProtein() {
-        return protein;
-    }
-
-    public String getFat() {
-        return fat;
-    }
-
-    public String getCarbohydrate() {
-        return carbohydrate;
-    }
-
-    public String getCount() {
-        return count;
     }
 }

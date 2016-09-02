@@ -52,10 +52,7 @@ public class Offer {
     }
 
     public static String getWeight_text() {
-        return Param.getWeight_text();
+        return Param.getWeightText();
     }
 
-    public static String getWeight() {
-        return Param.getWeight();
-    }
 }
