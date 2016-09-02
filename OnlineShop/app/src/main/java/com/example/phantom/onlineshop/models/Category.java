@@ -33,8 +33,4 @@ public class Category {
     public int getImdResId() {
         return imdResId;
     }
-
-    public void setImdResId(int imdResId) {
-        this.imdResId = imdResId;
-    }
 }

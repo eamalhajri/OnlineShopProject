@@ -3,7 +3,6 @@ package com.example.phantom.onlineshop.fragments;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.content.ContentValues;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -14,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.example.phantom.onlineshop.R;
-import com.example.phantom.onlineshop.adapters.CategoryAdapter;
+import com.example.phantom.onlineshop.adapters.CategoriesAdapter;
 import com.example.phantom.onlineshop.models.Category;
 
 public class TopFragment extends Fragment {
@@ -42,9 +41,9 @@ public class TopFragment extends Fragment {
         RecyclerView recyclerView = (RecyclerView) layout.findViewById(R.id.top_recycler);
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(layoutManager);
-        CategoryAdapter adapter = new CategoryAdapter(categoryNames, categoryImages, context);
+        CategoriesAdapter adapter = new CategoriesAdapter(categoryNames, categoryImages, context);
         recyclerView.setAdapter(adapter);
-        adapter.setListener(new CategoryAdapter.Listener() {
+        adapter.setListener(new CategoriesAdapter.Listener() {
             public void onClick(int position) {
                 Fragment fragment;
                 FragmentTransaction ft;

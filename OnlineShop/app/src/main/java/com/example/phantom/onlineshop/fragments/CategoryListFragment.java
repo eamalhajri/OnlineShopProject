@@ -11,8 +11,8 @@ import android.widget.RelativeLayout;
 
 import com.example.phantom.onlineshop.MainActivity;
 import com.example.phantom.onlineshop.R;
-import com.example.phantom.onlineshop.adapters.RecyclerViewAdapter;
-import com.example.phantom.onlineshop.models.PostList;
+import com.example.phantom.onlineshop.adapters.OffersAdapter;
+import com.example.phantom.onlineshop.models.Offer;
 
 import java.util.ArrayList;
 
@@ -20,18 +20,18 @@ public class CategoryListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        RelativeLayout layout = (RelativeLayout) inflater.inflate(R.layout.fragment_salad, container, false);
+        RelativeLayout layout = (RelativeLayout) inflater.inflate(R.layout.fragment_category_list, container, false);
 
         Bundle bundle = getArguments();
         String catId = bundle.getString("ID");
 
-        ArrayList<PostList> postLists = MainActivity.getPostLists();
-        ArrayList<PostList> sortedPosts = MainActivity.sortArray(catId, postLists);
+        ArrayList<Offer> offers = MainActivity.getOfferList();
+        ArrayList<Offer> sortedPosts = MainActivity.sortArray(catId, offers);
 
-        RecyclerView recyclerView = (RecyclerView) layout.findViewById(R.id.salad_recycler);
+        RecyclerView recyclerView = (RecyclerView) layout.findViewById(R.id.category_list_recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(getActivity(), sortedPosts);
+        OffersAdapter adapter = new OffersAdapter(getActivity(), sortedPosts);
         recyclerView.setAdapter(adapter);
         return layout;
     }

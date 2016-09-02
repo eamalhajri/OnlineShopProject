@@ -1,17 +1,13 @@
 package com.example.phantom.onlineshop;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.phantom.onlineshop.models.PostList;
 import com.example.phantom.onlineshop.other.PicassoDetailed;
-
-import java.util.ArrayList;
 
 public class DetailedActivity extends Activity {
     public static final String KEY_NAME = "key_name";

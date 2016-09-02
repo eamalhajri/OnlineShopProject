@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.example.phantom.onlineshop.R;
 
-public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
+public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.CategoryViewHolder> {
     private Context context;
     private String[] names;
     private int[] images;
@@ -27,13 +27,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         this.listener = listener;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class CategoryViewHolder extends RecyclerView.ViewHolder {
         private CardView cardView;
         private ImageView imageView;
         private TextView textView;
 
-
-        public ViewHolder(View v) {
+        public CategoryViewHolder(View v) {
             super(v);
             cardView = (CardView) v;
             imageView = (ImageView) cardView.findViewById(R.id.info_image);
@@ -41,21 +40,21 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         }
     }
 
-    public CategoryAdapter(String[] names, int[] images, Context context) {
+    public CategoriesAdapter(String[] names, int[] images, Context context) {
         this.names = names;
         this.images = images;
         this.context = context;
     }
 
     @Override
-    public CategoryAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public CategoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         CardView cv = (CardView) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.card_captioned_image, parent, false);
-        return new ViewHolder(cv);
+                .inflate(R.layout.category_item, parent, false);
+        return new CategoryViewHolder(cv);
     }
 
     @Override
-    public void onBindViewHolder(CategoryAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(CategoryViewHolder holder, final int position) {
         CardView cardView = holder.cardView;
         Drawable drawable = ContextCompat.getDrawable(context, images[position]);
         holder.imageView.setImageDrawable(drawable);
