@@ -62,9 +62,8 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.RecyclerVi
     public void onBindViewHolder(RecyclerViewHolders holder, final int position) {
         CardView cardView = holder.cardView;
         holder.name.setText(offerList.get(position).getName());
-     //   holder.weight.setText(offerList.get(position).getWeight());
+        holder.weight.setText(offerList.get(position).getWeight_text());
         holder.price.setText(offerList.get(position).getPrice());
-        //holder.name.setText(offerList.get(position).getName());
         String imageUrl = offerList.get(position).getPicture();
         ImageView imageView = (ImageView) cardView.findViewById(R.id.imageView);
         if (imageUrl.length() > 20) {
@@ -77,13 +76,13 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.RecyclerVi
                     listener.onClick(position);
                 }
                 String keyName = (offerList.get(position).getName());
-               // String keyWeight = (offerList.get(position).getWeight());
+                String keyWeight = (offerList.get(position).getWeight_text());
                 String keyPrice = (offerList.get(position).getPrice());
                 String keyImageUrl = (offerList.get(position).getPicture());
                 String keyDescription = (offerList.get(position).getDescription());
                 Intent intent = new Intent(context, DetailedActivity.class);
                 intent.putExtra(DetailedActivity.getKeyName(), keyName);
-               // intent.putExtra(DetailedActivity.getKeyWeight(), keyWeight);
+                intent.putExtra(DetailedActivity.getKeyWeight(), keyWeight);
                 intent.putExtra(DetailedActivity.getKeyPrice(), keyPrice);
                 intent.putExtra(DetailedActivity.getKeyImageUrl(), keyImageUrl);
                 intent.putExtra(DetailedActivity.getKeyDescription(), keyDescription);
