@@ -62,7 +62,7 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.RecyclerVi
     public void onBindViewHolder(RecyclerViewHolders holder, final int position) {
         CardView cardView = holder.cardView;
         holder.name.setText(offerList.get(position).getName());
-        holder.weight.setText(offerList.get(position).getWeight_text());
+        holder.weight.setText(offerList.get(position).getParamMap().get("Вес"));
         holder.price.setText(offerList.get(position).getPrice());
         String imageUrl = offerList.get(position).getPicture();
         ImageView imageView = (ImageView) cardView.findViewById(R.id.imageView);
@@ -76,7 +76,7 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.RecyclerVi
                     listener.onClick(position);
                 }
                 String keyName = (offerList.get(position).getName());
-                String keyWeight = (offerList.get(position).getWeight_text());
+                String keyWeight = (offerList.get(position).getParamMap().get("Вес"));
                 String keyPrice = (offerList.get(position).getPrice());
                 String keyImageUrl = (offerList.get(position).getPicture());
                 String keyDescription = (offerList.get(position).getDescription());

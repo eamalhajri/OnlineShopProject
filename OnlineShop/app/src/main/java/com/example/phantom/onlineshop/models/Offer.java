@@ -2,9 +2,11 @@ package com.example.phantom.onlineshop.models;
 
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
+import org.simpleframework.xml.ElementMap;
 import org.simpleframework.xml.Root;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 @Root(name = "offer", strict = false)
 public class Offer {
@@ -20,8 +22,8 @@ public class Offer {
     private String picture;
     @Element(required = false, name = "categoryId")
     private String categoryId;
-    @ElementList(required = false, inline = true)
-    private ArrayList<Param> paramList;
+    @ElementMap(entry = "param", key = "name", attribute = true, required = false, inline = true)
+    private Map<String, String> paramMap;
 
     public String getUrl() {
         return url;
@@ -47,12 +49,7 @@ public class Offer {
         return categoryId;
     }
 
-    public ArrayList<Param> getParamList() {
-        return paramList;
+    public Map<String, String> getParamMap() {
+        return paramMap;
     }
-
-    public static String getWeight_text() {
-        return Param.getWeightText();
-    }
-
 }
