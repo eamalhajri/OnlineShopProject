@@ -1,5 +1,13 @@
 # OnlineShopProject
-Model of OnlineShop (XML Parsing, RecyclerView, Fragments, GoogleMaps, Navigation Drawer, etc). Libs: Retrofit2, Simplexmlconverter, Picasso.
+Model of OnlineShop (XML Parsing, RecyclerView, Fragments, GoogleMaps, Navigation Drawer, etc). 
+
+Libraries and tools included:
+
+- Support libraries
+- RecyclerViews and CardViews
+- Google Maps
+- Retrofit2 with Simple XML Converter
+- Picasso
 
 
 Приложение должно отображать категории товаров (например, салаты, супы, десерты и тд) с иконкой категории (статическая картинка, не из сервера) внутри категории должен быть список блюд (берутся с сервера) В списке отображается Иконка блюда, Название, Вес, Цена. Внутри карточки блюда картинка, Название, Вес, Цена и описание. В приложении есть боковое левое меню с кнопками Каталог (main) и Контакты(contacts). Из них попадаем в категории блюд и на страницу С картой и контактными данными (телефон, адрес) На карте отображается адрес (адреса заведений) в виде метки, и текущее положение пользователя. (любые произвольные адреса) Данные для категорий и товаров загружать отсюда http://ufa.farfor.ru/getyml/?key=ukAXxeJYZN
