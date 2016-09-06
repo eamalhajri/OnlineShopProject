@@ -25,15 +25,14 @@ import com.example.phantom.onlineshop.rest.ApiService;
 
 import java.util.ArrayList;
 
-import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 
 public class MainActivity extends FragmentActivity implements AdapterView.OnItemClickListener {
     private int currentPosition = 0;
-    private ListView drawerList;
     private ActionBarDrawerToggle drawerToggle;
     private String[] drawerTitles;
+    private ListView drawerList;
     private DrawerLayout drawerLayout;
     private ProgressDialog pd;
     private static ArrayList<Offer> offerList;
@@ -42,10 +41,17 @@ public class MainActivity extends FragmentActivity implements AdapterView.OnItem
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initViews();
         initDrawer();
         initPosition(savedInstanceState);
         initActionBar();
         initRestXML();
+    }
+
+    private void initViews() {
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerTitles = getResources().getStringArray(R.array.drawer_titles);
+        drawerList = (ListView) findViewById(R.id.drawer_list);
     }
 
     private void initRestXML() {
@@ -76,9 +82,6 @@ public class MainActivity extends FragmentActivity implements AdapterView.OnItem
     }
 
     private void initDrawer() {
-        drawerTitles = getResources().getStringArray(R.array.drawerTitles);
-        drawerList = (ListView) findViewById(R.id.drawer);
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerList.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, drawerTitles));
         drawerList.setOnItemClickListener(this);
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open_drawer, R.string.close_drawer) {
@@ -157,7 +160,6 @@ public class MainActivity extends FragmentActivity implements AdapterView.OnItem
                         .commitAllowingStateLoss();
                 break;
         }
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerLayout.closeDrawer(drawerList);
     }
 

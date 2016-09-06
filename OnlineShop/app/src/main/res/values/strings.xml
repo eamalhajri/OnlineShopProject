@@ -9,7 +9,7 @@
         <item>Пицца</item>
     </string-array>
 
-    <string-array name="drawerTitles">
+    <string-array name="drawer_titles">
         <item>Каталог</item>
         <item>Контакты</item>
     </string-array>
