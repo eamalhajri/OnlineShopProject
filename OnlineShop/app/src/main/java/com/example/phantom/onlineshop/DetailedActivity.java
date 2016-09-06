@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.phantom.onlineshop.other.PicassoDetailed;
+import com.squareup.picasso.Picasso;
 
 public class DetailedActivity extends Activity {
     public static final String KEY_NAME = "key_name";
@@ -51,7 +51,9 @@ public class DetailedActivity extends Activity {
         priceTv.setText(price);
         descriptionTv.setText(description);
         if (imageUrl.length() > 15) {
-            PicassoDetailed.downloadImage(this, imageUrl, imageView);
+            Picasso.with(this)
+                    .load(imageUrl)
+                    .into(imageView);
         }
     }
 

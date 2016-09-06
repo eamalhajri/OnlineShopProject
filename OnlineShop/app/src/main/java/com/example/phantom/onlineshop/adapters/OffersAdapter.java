@@ -4,18 +4,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.phantom.onlineshop.DetailedActivity;
 import com.example.phantom.onlineshop.R;
 import com.example.phantom.onlineshop.models.Offer;
-import com.example.phantom.onlineshop.other.PicassoClient;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -28,6 +26,7 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.RecyclerVi
     public class RecyclerViewHolders extends RecyclerView.ViewHolder {
         public TextView name, weight, price, description;
         private CardView cardView;
+        private ImageView imageView;
 
         public RecyclerViewHolders(View v) {
             super(v);
@@ -36,6 +35,7 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.RecyclerVi
             weight = (TextView) cardView.findViewById(R.id.offer_weight);
             price = (TextView) cardView.findViewById(R.id.offer_price);
             description = (TextView) cardView.findViewById(R.id.offer_description);
+            imageView = (ImageView) cardView.findViewById(R.id.imageView);
         }
     }
 
@@ -65,9 +65,11 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.RecyclerVi
         holder.weight.setText(offerList.get(position).getParamMap().get("Вес"));
         holder.price.setText(offerList.get(position).getPrice());
         String imageUrl = offerList.get(position).getPicture();
-        ImageView imageView = (ImageView) cardView.findViewById(R.id.imageView);
-        if (imageUrl.length() > 20) {
-            PicassoClient.downloadImage(context, imageUrl, imageView);
+        if (imageUrl.length() > 15) {
+            Picasso.with(holder.imageView.getContext())
+                    .load(imageUrl)
+                    .placeholder(R.drawable.placeholder)
+                    .into(holder.imageView);
         }
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
