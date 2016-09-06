@@ -23,7 +23,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class ContactsFragment extends Fragment implements OnMapReadyCallback {
     private static final int REQUEST_ACCESS_FINE_LOCATION = 0;
-    private TextView number;
+    private TextView contactsNumber;
+    private String number;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -31,7 +32,6 @@ public class ContactsFragment extends Fragment implements OnMapReadyCallback {
         View view = inflater.inflate(R.layout.fragment_contact, container, false);
         initViews(view);
         initListeners();
-        initMaps();
         initMaps();
         return view;
     }
@@ -43,11 +43,12 @@ public class ContactsFragment extends Fragment implements OnMapReadyCallback {
 
     @Override
     public void onMapReady(GoogleMap map) {
+        LatLng city, address1, address2, address3;
         map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        LatLng city = new LatLng(53.903752, 27.564201);
-        LatLng address1 = new LatLng(53.908757, 27.469890);
-        LatLng address2 = new LatLng(53.920255, 27.577232);
-        LatLng address3 = new LatLng(53.878631, 27.558539);
+        city = new LatLng(53.903752, 27.564201);
+        address1 = new LatLng(53.908757, 27.469890);
+        address2 = new LatLng(53.920255, 27.577232);
+        address3 = new LatLng(53.878631, 27.558539);
         map.addMarker(new MarkerOptions().position(address1).title("Cafe #1"));
         map.addMarker(new MarkerOptions().position(address2).title("Cafe #2"));
         map.addMarker(new MarkerOptions().position(address3).title("Cafe #3"));
@@ -62,14 +63,14 @@ public class ContactsFragment extends Fragment implements OnMapReadyCallback {
     }
 
     private void initViews(View view) {
-        number = (TextView) view.findViewById(R.id.contacts_number);
+        contactsNumber = (TextView) view.findViewById(R.id.contacts_number);
     }
 
     private void initListeners() {
-        number.setOnClickListener(new View.OnClickListener() {
+        contactsNumber.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String number = getString(R.string.number);
+                number = getString(R.string.number);
                 Intent dialIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + number));
                 startActivity(dialIntent);
             }

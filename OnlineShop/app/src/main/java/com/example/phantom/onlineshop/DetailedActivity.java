@@ -23,8 +23,8 @@ public class DetailedActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed);
-        getExtras();
         initViews();
+        getExtras();
         initBinds();
     }
 

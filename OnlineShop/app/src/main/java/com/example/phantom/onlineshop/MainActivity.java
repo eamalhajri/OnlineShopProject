@@ -33,6 +33,8 @@ public class MainActivity extends FragmentActivity implements AdapterView.OnItem
     private int currentPosition = 0;
     private ListView drawerList;
     private ActionBarDrawerToggle drawerToggle;
+    private String[] drawerTitles;
+    private DrawerLayout drawerLayout;
     private ProgressDialog pd;
     private static ArrayList<Offer> offerList;
 
@@ -74,9 +76,9 @@ public class MainActivity extends FragmentActivity implements AdapterView.OnItem
     }
 
     private void initDrawer() {
-        String[] drawerTitles = getResources().getStringArray(R.array.drawerTitles);
+        drawerTitles = getResources().getStringArray(R.array.drawerTitles);
         drawerList = (ListView) findViewById(R.id.drawer);
-        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerList.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, drawerTitles));
         drawerList.setOnItemClickListener(this);
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open_drawer, R.string.close_drawer) {
@@ -155,7 +157,7 @@ public class MainActivity extends FragmentActivity implements AdapterView.OnItem
                         .commitAllowingStateLoss();
                 break;
         }
-        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerLayout.closeDrawer(drawerList);
     }
 

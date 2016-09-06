@@ -1,11 +1,9 @@
 package com.example.phantom.onlineshop.models;
 
 import org.simpleframework.xml.Element;
-import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.ElementMap;
 import org.simpleframework.xml.Root;
 
-import java.util.ArrayList;
 import java.util.Map;
 
 @Root(name = "offer", strict = false)

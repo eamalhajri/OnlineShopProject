@@ -27,6 +27,7 @@ public class TopFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         RelativeLayout layout = (RelativeLayout) inflater.inflate(R.layout.fragment_top, container, false);
+        RecyclerView recyclerView = (RecyclerView) layout.findViewById(R.id.top_recycler);
 
         Context context = getActivity();
         String[] categoryNames = new String[NUMBERS_OF_CATEGORIES];
@@ -38,7 +39,6 @@ public class TopFragment extends Fragment {
             categoryImages[i] = Category.categories[i].getImdResId();
         }
 
-        RecyclerView recyclerView = (RecyclerView) layout.findViewById(R.id.top_recycler);
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(layoutManager);
         CategoriesAdapter adapter = new CategoriesAdapter(categoryNames, categoryImages, context);
