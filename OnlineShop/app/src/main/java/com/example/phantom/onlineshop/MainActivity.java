@@ -1,57 +1,103 @@
 package com.example.phantom.onlineshop;
 
 import android.app.ActionBar;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
+import com.example.phantom.onlineshop.adapters.DrawerAdapter;
+import com.example.phantom.onlineshop.database.Model;
 import com.example.phantom.onlineshop.fragments.ContactsFragment;
 import com.example.phantom.onlineshop.fragments.TopFragment;
 import com.example.phantom.onlineshop.models.Offer;
 import com.example.phantom.onlineshop.models.OffersResponse;
 import com.example.phantom.onlineshop.rest.ApiClient;
 import com.example.phantom.onlineshop.rest.ApiService;
+import com.raizlabs.android.dbflow.config.FlowConfig;
+import com.raizlabs.android.dbflow.config.FlowManager;
+import com.raizlabs.android.dbflow.sql.language.Select;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 
-public class MainActivity extends FragmentActivity implements AdapterView.OnItemClickListener {
-    private int currentPosition = 0;
+public class MainActivity extends FragmentActivity {
     private ActionBarDrawerToggle drawerToggle;
     private String[] drawerTitles;
-    private ListView drawerList;
+    private RecyclerView drawerRecyclerView;
     private DrawerLayout drawerLayout;
     private ProgressDialog pd;
     private static ArrayList<Offer> offerList;
+    private Fragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        FlowManager.init(new FlowConfig.Builder(getApplicationContext()).build());
         initViews();
+        initTopFragment();
         initDrawer();
-        initPosition(savedInstanceState);
         initActionBar();
         initRestXML();
+    }
+
+    private void initTopFragment() {
+        fragment = new TopFragment();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.content_frame, fragment, fragment.getClass().getSimpleName())
+                .addToBackStack(fragment.getClass().getSimpleName())
+                .commitAllowingStateLoss();
+    }
+
+    private void fillDB(final ArrayList<Offer> offerList) {
+        for (int i = 0; i < offerList.size(); i++) {
+            Model model = new Model();
+            String url, name, price, description, picture, categoryId;
+            url = offerList.get(i).getUrl();
+            name = offerList.get(i).getName();
+            price = offerList.get(i).getPrice();
+            description = offerList.get(i).getDescription();
+            picture = offerList.get(i).getPicture();
+            categoryId = offerList.get(i).getCategoryId();
+            model.setUrl(url);
+            model.setName(name);
+            model.setPrice(price);
+            model.setDescription(description);
+            model.setPicture(picture);
+            model.setCategoryId(categoryId);
+            model.async().save();
+            Log.d("TAG", "Create DB row " + model.getName() + model.getPrice()
+                    + model.getDescription());
+        }
+    }
+
+    private void queryDB() {
+        List<Model> listModel = new Select()
+                .from(Model.class)
+                .queryList();
+//        for (int i = 0; i < listModel.size(); i++) {
+//            Log.d("TAG", "show name " + i + ": " + listModel.get(i).getName());
+//        }
     }
 
     private void initViews() {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerTitles = getResources().getStringArray(R.array.drawer_titles);
-        drawerList = (ListView) findViewById(R.id.drawer_list);
+        drawerRecyclerView = (RecyclerView) findViewById(R.id.drawer_recycler_view);
     }
 
     private void initRestXML() {
@@ -62,6 +108,8 @@ public class MainActivity extends FragmentActivity implements AdapterView.OnItem
             @Override
             public void onResponse(Call<OffersResponse> call, retrofit2.Response<OffersResponse> response) {
                 offerList = response.body().getOfferList();
+                //fillDB(offerList);
+                // queryDB();
                 Log.d("TAG", "onResponse: " + offerList.size());
                 pd.dismiss();
             }
@@ -82,36 +130,42 @@ public class MainActivity extends FragmentActivity implements AdapterView.OnItem
     }
 
     private void initDrawer() {
-        drawerList.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, drawerTitles));
-        drawerList.setOnItemClickListener(this);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        drawerRecyclerView.setLayoutManager(layoutManager);
+        DrawerAdapter adapter = new DrawerAdapter(this, drawerTitles);
+        drawerRecyclerView.setAdapter(adapter);
+        adapter.setListener(new DrawerAdapter.Listener() {
+            @Override
+            public void onClick(int position) {
+                switch (position) {
+                    case 1:
+                        fragment = new ContactsFragment();
+                        break;
+                    default:
+                        fragment = new TopFragment();
+                        break;
+                }
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.content_frame, fragment, fragment.getClass().getSimpleName())
+                        .addToBackStack(fragment.getClass().getSimpleName())
+                        .commitAllowingStateLoss();
+                drawerLayout.closeDrawer(drawerRecyclerView);
+            }
+        });
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open_drawer, R.string.close_drawer) {
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
-                invalidateOptionsMenu();
+                supportInvalidateOptionsMenu();
             }
 
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                invalidateOptionsMenu();
+                supportInvalidateOptionsMenu();
             }
         };
         drawerLayout.addDrawerListener(drawerToggle);
-    }
-
-    private void initPosition(Bundle savedInstanceState) {
-        if (savedInstanceState != null) {
-            currentPosition = savedInstanceState.getInt("position");
-        } else {
-            selectItem(0);
-        }
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putInt("position", currentPosition);
     }
 
     @Override
@@ -131,38 +185,6 @@ public class MainActivity extends FragmentActivity implements AdapterView.OnItem
         return drawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        selectItem(position);
-    }
-
-    private void selectItem(int position) {
-        currentPosition = position;
-        Fragment fragment;
-        FragmentTransaction ft;
-        switch (position) {
-            case 1:
-                ContactsFragment contactsFragment = new ContactsFragment();
-                android.support.v4.app.Fragment rfragment = getSupportFragmentManager().findFragmentByTag(contactsFragment.getClass().getSimpleName());
-                if (rfragment != null) {
-                    getSupportFragmentManager().popBackStackImmediate(rfragment.getClass().getSimpleName(), 0);
-                }
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.content_frame, contactsFragment, contactsFragment.getClass().getSimpleName())
-                        .addToBackStack(contactsFragment.getClass().getSimpleName())
-                        .commitAllowingStateLoss();
-                break;
-            default:
-                fragment = new TopFragment();
-                ft = getFragmentManager().beginTransaction();
-                ft.replace(R.id.content_frame, fragment, fragment.getClass().getSimpleName())
-                        .addToBackStack(fragment.getClass().getSimpleName())
-                        .commitAllowingStateLoss();
-                break;
-        }
-        drawerLayout.closeDrawer(drawerList);
-    }
-
     public static ArrayList<Offer> sortArray(String categoryId, ArrayList<Offer> offerLists) {
         ArrayList<Offer> offers = new ArrayList<>();
         for (int i = 0; i < offerLists.size(); i++) {
@@ -176,6 +198,4 @@ public class MainActivity extends FragmentActivity implements AdapterView.OnItem
     public static ArrayList<Offer> getOfferList() {
         return offerList;
     }
-
-
 }

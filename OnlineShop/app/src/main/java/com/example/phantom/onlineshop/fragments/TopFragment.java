@@ -1,10 +1,10 @@
 package com.example.phantom.onlineshop.fragments;
 
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -22,6 +22,7 @@ public class TopFragment extends Fragment {
     private final static String CATEGORY_ID_DESSERT = "10";
     private final static String CATEGORY_ID_PIZZA = "1";
     private final static String CATEGORY_ID_SOUP = "6";
+    private Fragment fragment;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,45 +46,32 @@ public class TopFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         adapter.setListener(new CategoriesAdapter.Listener() {
             public void onClick(int position) {
-                Fragment fragment;
-                FragmentTransaction ft;
-                Bundle bundle;
+               Bundle bundle = new Bundle();
                 switch (position) {
                     case 0:
                         fragment = new CategoryListFragment();
-                        bundle = new Bundle();
                         bundle.putString("ID", CATEGORY_ID_SALAD);
-                        fragment.setArguments(bundle);
-                        ft = getFragmentManager().beginTransaction();
-                        ft.replace(R.id.content_frame, fragment).addToBackStack(null).commit();
                         break;
                     case 1:
                         fragment = new CategoryListFragment();
-                        bundle = new Bundle();
                         bundle.putString("ID", CATEGORY_ID_SOUP);
-                        fragment.setArguments(bundle);
-                        ft = getFragmentManager().beginTransaction();
-                        ft.replace(R.id.content_frame, fragment).addToBackStack(null).commit();
                         break;
                     case 2:
                         fragment = new CategoryListFragment();
-                        bundle = new Bundle();
                         bundle.putString("ID", CATEGORY_ID_DESSERT);
-                        fragment.setArguments(bundle);
-                        ft = getFragmentManager().beginTransaction();
-                        ft.replace(R.id.content_frame, fragment).addToBackStack(null).commit();
                         break;
                     case 3:
                         fragment = new CategoryListFragment();
-                        bundle = new Bundle();
                         bundle.putString("ID", CATEGORY_ID_PIZZA);
-                        fragment.setArguments(bundle);
-                        ft = getFragmentManager().beginTransaction();
-                        ft.replace(R.id.content_frame, fragment).addToBackStack(null).commit();
                         break;
                     default:
                         break;
                 }
+                fragment.setArguments(bundle);
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.content_frame, fragment)
+                        .addToBackStack(fragment.getClass().getSimpleName())
+                        .commitAllowingStateLoss();
             }
         });
         return layout;
