@@ -89,7 +89,7 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.RecyclerVi
                 DataForDetailedActivity data = new DataForDetailedActivity(keyName, keyWeight, keyPrice, keyImageUrl, keyDescription);
 
                 Intent intent = new Intent(context, DetailedActivity.class);
-                intent.putExtra("DATA", data);
+                intent.putExtra(DetailedActivity.KEY_DATA, data);
                 context.startActivity(intent);
             }
         });
