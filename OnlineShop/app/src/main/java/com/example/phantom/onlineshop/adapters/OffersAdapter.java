@@ -2,6 +2,8 @@ package com.example.phantom.onlineshop.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.os.Parcel;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 import com.example.phantom.onlineshop.DetailedActivity;
 import com.example.phantom.onlineshop.R;
 import com.example.phantom.onlineshop.models.Offer;
+import com.example.phantom.onlineshop.other.DataForDetailedActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -60,7 +63,7 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.RecyclerVi
 
     @Override
     public void onBindViewHolder(RecyclerViewHolders holder, final int position) {
-        CardView cardView = holder.cardView;
+        final CardView cardView = holder.cardView;
         holder.name.setText(offerList.get(position).getName());
         holder.weight.setText(offerList.get(position).getParamMap().get("Вес"));
         holder.price.setText(offerList.get(position).getPrice());
@@ -82,12 +85,11 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.RecyclerVi
                 String keyPrice = (offerList.get(position).getPrice());
                 String keyImageUrl = (offerList.get(position).getPicture());
                 String keyDescription = (offerList.get(position).getDescription());
+
+                DataForDetailedActivity data = new DataForDetailedActivity(keyName, keyWeight, keyPrice, keyImageUrl, keyDescription);
+
                 Intent intent = new Intent(context, DetailedActivity.class);
-                intent.putExtra(DetailedActivity.getKeyName(), keyName);
-                intent.putExtra(DetailedActivity.getKeyWeight(), keyWeight);
-                intent.putExtra(DetailedActivity.getKeyPrice(), keyPrice);
-                intent.putExtra(DetailedActivity.getKeyImageUrl(), keyImageUrl);
-                intent.putExtra(DetailedActivity.getKeyDescription(), keyDescription);
+                intent.putExtra("DATA", data);
                 context.startActivity(intent);
             }
         });

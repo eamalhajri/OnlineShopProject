@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.phantom.onlineshop.other.DataForDetailedActivity;
 import com.squareup.picasso.Picasso;
 
 public class DetailedActivity extends Activity {
@@ -29,12 +30,12 @@ public class DetailedActivity extends Activity {
     }
 
     private void getExtras() {
-        Intent intent = getIntent();
-        name = intent.getExtras().getString(KEY_NAME);
-        weight = intent.getExtras().getString(KEY_WEIGHT);
-        price = intent.getExtras().getString(KEY_PRICE);
-        imageUrl = intent.getExtras().getString(KEY_IMAGE_URL);
-        description = intent.getExtras().getString(KEY_DESCRIPTION);
+        DataForDetailedActivity data = getIntent().getParcelableExtra("DATA");
+        name = data.keyName;
+        weight = data.keyWeight;
+        price = data.keyPrice;
+        imageUrl = data.keyImageUrl;
+        description = data.keyDescription;
     }
 
     private void initViews() {
