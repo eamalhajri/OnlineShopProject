@@ -27,7 +27,6 @@ import com.raizlabs.android.dbflow.config.FlowManager;
 import com.raizlabs.android.dbflow.sql.language.Delete;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,7 +39,6 @@ public class MainActivity extends FragmentActivity {
     private ProgressDialog pd;
     private static ArrayList<Offer> offerList;
     private Fragment fragment;
-    private static List<Model> listModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +49,9 @@ public class MainActivity extends FragmentActivity {
         initTopFragment();
         initDrawer();
         initActionBar();
-        Delete.table(Model.class);
+        //Have to check update parsing page to create option of downloading new data or receive it from our db
+        //Looking for an answer
+        Delete.table(Model.class); //temporary line
         initRestXML();
     }
 
@@ -63,8 +63,8 @@ public class MainActivity extends FragmentActivity {
                 .commitAllowingStateLoss();
     }
 
-    private void fillDB(ArrayList<Offer> offerList) {
-        String url, name, price, description, picture, weight = "", categoryId;
+    private void fillDB(ArrayList<Offer> offerList) throws NullPointerException {
+        String url, name, price, description, picture, weight, categoryId;
         for (int i = 0; i < offerList.size(); i++) {
             url = offerList.get(i).getUrl();
             name = offerList.get(i).getName();
@@ -72,11 +72,18 @@ public class MainActivity extends FragmentActivity {
             description = offerList.get(i).getDescription();
             picture = offerList.get(i).getPicture();
             categoryId = offerList.get(i).getCategory();
+            //I have a problem with getting paramMap because some offer hasn't this field.
+            //Should check it. Trying different options.
+            weight = "";
             Model model = new Model(url, name, price, description, picture, categoryId, weight);
-            model.save();
+            model.async().save();
         }
-        //  String keyWeight = (offerList.get(position).getParamMap().get("Вес"));
+//          if (!offerList.get(i).getParamMap().isEmpty()) {
+//          weight = offerList.get(i).getParamMap().get("Вес");}
     }
+
+
+
 
     private void initViews() {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
