@@ -9,31 +9,47 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import com.example.phantom.onlineshop.MainActivity;
 import com.example.phantom.onlineshop.R;
 import com.example.phantom.onlineshop.adapters.OffersAdapter;
-import com.example.phantom.onlineshop.models.Offer;
+import com.example.phantom.onlineshop.database.Model;
+import com.example.phantom.onlineshop.database.ModelDatabase;
+import com.example.phantom.onlineshop.database.Model_Table;
+import com.raizlabs.android.dbflow.config.DatabaseDefinition;
+import com.raizlabs.android.dbflow.config.FlowManager;
+import com.raizlabs.android.dbflow.sql.language.Select;
+import com.raizlabs.android.dbflow.structure.database.DatabaseWrapper;
+import com.raizlabs.android.dbflow.structure.database.transaction.ITransaction;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class CategoryListFragment extends Fragment {
+    private String catId;
+    private RecyclerView recyclerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         RelativeLayout layout = (RelativeLayout) inflater.inflate(R.layout.fragment_category_list, container, false);
-        RecyclerView recyclerView = (RecyclerView) layout.findViewById(R.id.category_list_recycler_view);
+        recyclerView = (RecyclerView) layout.findViewById(R.id.category_list_recycler_view);
 
         Bundle bundle = getArguments();
-        String catId = bundle.getString("ID");
-
-        ArrayList<Offer> offers = MainActivity.getOfferList();
-        ArrayList<Offer> sortedPosts = MainActivity.sortArray(catId, offers);
+        catId = bundle.getString("ID");
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-        OffersAdapter adapter = new OffersAdapter(getActivity(), sortedPosts);
-        recyclerView.setAdapter(adapter);
+
+        DatabaseDefinition database = FlowManager.getDatabase(ModelDatabase.class);
+        database.executeTransaction(new ITransaction() {
+            @Override
+            public void execute(DatabaseWrapper databaseWrapper) {
+                List<Model> listModel = new Select()
+                        .from(Model.class)
+                        .where(Model_Table.categoryId.is(catId))
+                        .queryList();
+                OffersAdapter adapter = new OffersAdapter(getActivity(), listModel);
+                recyclerView.setAdapter(adapter);
+            }
+        });
         return layout;
     }
 }

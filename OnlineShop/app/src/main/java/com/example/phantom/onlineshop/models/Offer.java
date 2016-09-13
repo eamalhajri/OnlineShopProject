@@ -19,7 +19,7 @@ public class Offer {
     @Element(required = false, name = "picture")
     private String picture;
     @Element(required = false, name = "categoryId")
-    private String categoryId;
+    private String category;
     @ElementMap(entry = "param", key = "name", attribute = true, required = false, inline = true)
     private Map<String, String> paramMap;
 
@@ -43,8 +43,8 @@ public class Offer {
         return picture;
     }
 
-    public String getCategoryId() {
-        return categoryId;
+    public String getCategory() {
+        return category;
     }
 
     public Map<String, String> getParamMap() {

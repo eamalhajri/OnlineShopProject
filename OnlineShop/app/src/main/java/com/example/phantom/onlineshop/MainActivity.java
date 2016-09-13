@@ -6,8 +6,6 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -26,7 +24,7 @@ import com.example.phantom.onlineshop.rest.ApiClient;
 import com.example.phantom.onlineshop.rest.ApiService;
 import com.raizlabs.android.dbflow.config.FlowConfig;
 import com.raizlabs.android.dbflow.config.FlowManager;
-import com.raizlabs.android.dbflow.sql.language.Select;
+import com.raizlabs.android.dbflow.sql.language.Delete;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +40,7 @@ public class MainActivity extends FragmentActivity {
     private ProgressDialog pd;
     private static ArrayList<Offer> offerList;
     private Fragment fragment;
+    private static List<Model> listModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +51,7 @@ public class MainActivity extends FragmentActivity {
         initTopFragment();
         initDrawer();
         initActionBar();
+        Delete.table(Model.class);
         initRestXML();
     }
 
@@ -63,35 +63,19 @@ public class MainActivity extends FragmentActivity {
                 .commitAllowingStateLoss();
     }
 
-    private void fillDB(final ArrayList<Offer> offerList) {
+    private void fillDB(ArrayList<Offer> offerList) {
+        String url, name, price, description, picture, weight = "", categoryId;
         for (int i = 0; i < offerList.size(); i++) {
-            Model model = new Model();
-            String url, name, price, description, picture, categoryId;
             url = offerList.get(i).getUrl();
             name = offerList.get(i).getName();
             price = offerList.get(i).getPrice();
             description = offerList.get(i).getDescription();
             picture = offerList.get(i).getPicture();
-            categoryId = offerList.get(i).getCategoryId();
-            model.setUrl(url);
-            model.setName(name);
-            model.setPrice(price);
-            model.setDescription(description);
-            model.setPicture(picture);
-            model.setCategoryId(categoryId);
-            model.async().save();
-            Log.d("TAG", "Create DB row " + model.getName() + model.getPrice()
-                    + model.getDescription());
+            categoryId = offerList.get(i).getCategory();
+            Model model = new Model(url, name, price, description, picture, categoryId, weight);
+            model.save();
         }
-    }
-
-    private void queryDB() {
-        List<Model> listModel = new Select()
-                .from(Model.class)
-                .queryList();
-//        for (int i = 0; i < listModel.size(); i++) {
-//            Log.d("TAG", "show name " + i + ": " + listModel.get(i).getName());
-//        }
+        //  String keyWeight = (offerList.get(position).getParamMap().get("Вес"));
     }
 
     private void initViews() {
@@ -108,9 +92,8 @@ public class MainActivity extends FragmentActivity {
             @Override
             public void onResponse(Call<OffersResponse> call, retrofit2.Response<OffersResponse> response) {
                 offerList = response.body().getOfferList();
-                //fillDB(offerList);
-                // queryDB();
                 Log.d("TAG", "onResponse: " + offerList.size());
+                fillDB(offerList);
                 pd.dismiss();
             }
 
@@ -183,19 +166,5 @@ public class MainActivity extends FragmentActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return drawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
-    }
-
-    public static ArrayList<Offer> sortArray(String categoryId, ArrayList<Offer> offerLists) {
-        ArrayList<Offer> offers = new ArrayList<>();
-        for (int i = 0; i < offerLists.size(); i++) {
-            if ((offerLists.get(i).getCategoryId()).equals(categoryId)) {
-                offers.add(offerLists.get(i));
-            }
-        }
-        return offers;
-    }
-
-    public static ArrayList<Offer> getOfferList() {
-        return offerList;
     }
 }

@@ -2,8 +2,6 @@ package com.example.phantom.onlineshop.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.os.Parcel;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,15 +12,14 @@ import android.widget.TextView;
 
 import com.example.phantom.onlineshop.DetailedActivity;
 import com.example.phantom.onlineshop.R;
-import com.example.phantom.onlineshop.models.Offer;
+import com.example.phantom.onlineshop.database.Model;
 import com.example.phantom.onlineshop.other.DataForDetailedActivity;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
-
+import java.util.List;
 
 public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.RecyclerViewHolders> {
-    private ArrayList<Offer> offerList;
+    private List<Model> offerList;
     private Listener listener;
     private Context context;
 
@@ -42,7 +39,7 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.RecyclerVi
         }
     }
 
-    public OffersAdapter(Context context, ArrayList<Offer> offers) {
+    public OffersAdapter(Context context, List<Model> offers) {
         this.context = context;
         this.offerList = offers;
     }
@@ -65,7 +62,7 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.RecyclerVi
     public void onBindViewHolder(RecyclerViewHolders holder, final int position) {
         final CardView cardView = holder.cardView;
         holder.name.setText(offerList.get(position).getName());
-        holder.weight.setText(offerList.get(position).getParamMap().get("Вес"));
+       holder.weight.setText(offerList.get(position).getWeight());
         holder.price.setText(offerList.get(position).getPrice());
         String imageUrl = offerList.get(position).getPicture();
         if (imageUrl.length() > 15) {
@@ -81,7 +78,7 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.RecyclerVi
                     listener.onClick(position);
                 }
                 String keyName = (offerList.get(position).getName());
-                String keyWeight = (offerList.get(position).getParamMap().get("Вес"));
+                String keyWeight = (offerList.get(position).getWeight());
                 String keyPrice = (offerList.get(position).getPrice());
                 String keyImageUrl = (offerList.get(position).getPicture());
                 String keyDescription = (offerList.get(position).getDescription());
