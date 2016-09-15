@@ -1,5 +1,5 @@
 # OnlineShopProject
-Model of OnlineShop (XML Parsing, RecyclerView, Fragments, GoogleMaps, Navigation Drawer, Notification, Service, BroadcastReceiver, etc). 
+Model of OnlineShop (XML parsing, SQL, RecyclerView, Fragments, GoogleMaps, Navigation Drawer, Notification, Service, BroadcastReceiver, etc). 
 
 Libraries and tools included:
 
