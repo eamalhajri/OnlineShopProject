@@ -1,5 +1,5 @@
 # OnlineShopProject
-Model of OnlineShop (XML Parsing, RecyclerView, Fragments, GoogleMaps, Navigation Drawer, etc). 
+Model of OnlineShop (XML Parsing, RecyclerView, Fragments, GoogleMaps, Navigation Drawer, Notification, Service, BroadcastReceiver, etc). 
 
 Libraries and tools included:
 
@@ -18,4 +18,6 @@ Libraries and tools included:
 ![detailedactivity](https://cloud.githubusercontent.com/assets/20554467/18092154/e76cc76e-6ed3-11e6-8ab9-6d7080961754.png)
 ![navigationdrawer](https://cloud.githubusercontent.com/assets/20554467/18092153/e73d386e-6ed3-11e6-97f4-f356eb58d254.png)
 ![contacts](https://cloud.githubusercontent.com/assets/20554467/18092156/e77f182e-6ed3-11e6-886b-3c47b472f484.png)
+![notification](https://cloud.githubusercontent.com/assets/20554467/18553729/3435d89a-7b6a-11e6-82e4-2f52351841da.png)
+
 
