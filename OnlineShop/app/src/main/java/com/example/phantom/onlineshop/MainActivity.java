@@ -1,7 +1,10 @@
 package com.example.phantom.onlineshop;
 
 import android.app.ActionBar;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -20,6 +23,7 @@ import com.example.phantom.onlineshop.fragments.ContactsFragment;
 import com.example.phantom.onlineshop.fragments.TopFragment;
 import com.example.phantom.onlineshop.models.Offer;
 import com.example.phantom.onlineshop.models.OffersResponse;
+import com.example.phantom.onlineshop.notification.AlarmReceiver;
 import com.example.phantom.onlineshop.rest.ApiClient;
 import com.example.phantom.onlineshop.rest.ApiService;
 import com.raizlabs.android.dbflow.config.FlowConfig;
@@ -27,6 +31,7 @@ import com.raizlabs.android.dbflow.config.FlowManager;
 import com.raizlabs.android.dbflow.sql.language.Delete;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -49,10 +54,28 @@ public class MainActivity extends FragmentActivity {
         initTopFragment();
         initDrawer();
         initActionBar();
+        setAlarmNotification();//every 24 hours thanks user for using our service
         //Have to check update parsing page to create option of downloading new data or receive it from our db
         //Looking for an answer
         Delete.table(Model.class); //temporary line
         initRestXML();
+    }
+
+    public void setAlarmNotification() {
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        Intent alarmIntent = new Intent(MainActivity.this, AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, alarmIntent, 0);
+
+        Calendar alarmStartTime = Calendar.getInstance();
+        alarmStartTime.set(Calendar.HOUR_OF_DAY, 17);
+        alarmStartTime.set(Calendar.MINUTE, 0);
+        alarmStartTime.set(Calendar.SECOND, 0);
+        alarmManager.setRepeating(AlarmManager.RTC, alarmStartTime.getTimeInMillis(), getInterval(), pendingIntent);
+    }
+
+    private int getInterval() {
+        int days = 1, hours = 24, minutes = 60, seconds = 60, milliseconds = 1000;
+        return days * hours * minutes * seconds * milliseconds;
     }
 
     private void initTopFragment() {
@@ -81,8 +104,6 @@ public class MainActivity extends FragmentActivity {
 //          if (!offerList.get(i).getParamMap().isEmpty()) {
 //          weight = offerList.get(i).getParamMap().get("Вес");}
     }
-
-
 
 
     private void initViews() {
