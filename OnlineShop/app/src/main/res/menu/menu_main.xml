@@ -5,15 +5,15 @@
     tools:context=".MainActivity">
 
     <item
-        android:id="@+id/menu_grid"
-        android:icon="@drawable/stag_grid"
-        android:title="@string/grid"
-        app:showAsAction="always" />
-
-    <item
         android:id="@+id/menu_list"
         android:icon="@drawable/list"
         android:title="@string/list"
         app:showAsAction="always" />
+
+    <item
+        android:id="@+id/menu_grid"
+        android:icon="@drawable/grid"
+        android:title="@string/grid"
+        app:showAsAction="ifRoom" />
 
 </menu>

@@ -11,21 +11,19 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ShareActionProvider;
 
 import com.example.phantom.onlineshop.adapters.DrawerAdapter;
 import com.example.phantom.onlineshop.adapters.Header;
 import com.example.phantom.onlineshop.database.Model;
 import com.example.phantom.onlineshop.database.ModelDatabase;
-import com.example.phantom.onlineshop.database.Model_Table;
 import com.example.phantom.onlineshop.fragments.ContactsFragment;
 import com.example.phantom.onlineshop.fragments.TopFragment;
 import com.example.phantom.onlineshop.models.Offer;
@@ -36,7 +34,6 @@ import com.example.phantom.onlineshop.rest.ApiService;
 import com.raizlabs.android.dbflow.config.DatabaseDefinition;
 import com.raizlabs.android.dbflow.config.FlowConfig;
 import com.raizlabs.android.dbflow.config.FlowManager;
-import com.raizlabs.android.dbflow.sql.language.Delete;
 import com.raizlabs.android.dbflow.sql.language.Select;
 import com.raizlabs.android.dbflow.structure.database.DatabaseWrapper;
 import com.raizlabs.android.dbflow.structure.database.transaction.ITransaction;
@@ -48,7 +45,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends AppCompatActivity {
     private ActionBarDrawerToggle drawerToggle;
     private String[] drawerTitles;
     private RecyclerView drawerRecyclerView;
@@ -56,6 +53,7 @@ public class MainActivity extends FragmentActivity {
     private ProgressDialog pd;
     private static ArrayList<Offer> offerList;
     private Fragment fragment;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,11 +156,10 @@ public class MainActivity extends FragmentActivity {
     }
 
     private void initActionBar() {
-        ActionBar actionBar = getActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeButtonEnabled(true);
-        }
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
     }
 
     private void initDrawer() {
@@ -174,11 +171,11 @@ public class MainActivity extends FragmentActivity {
             @Override
             public void onClick(int position) {
                 switch (position) {
-                    case 1:
-                        fragment = new TopFragment();
-                        break;
                     case 2:
                         fragment = new ContactsFragment();
+                        break;
+                    default:
+                        fragment = new TopFragment();
                         break;
                 }
                 getSupportFragmentManager().beginTransaction()
@@ -188,7 +185,7 @@ public class MainActivity extends FragmentActivity {
                 drawerLayout.closeDrawer(drawerRecyclerView);
             }
         });
-        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open_drawer, R.string.close_drawer) {
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_drawer, R.string.close_drawer) {
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
@@ -202,12 +199,10 @@ public class MainActivity extends FragmentActivity {
             }
         };
         drawerLayout.addDrawerListener(drawerToggle);
-
     }
 
     public Header getHeader() {
-        Header header = new Header();
-        return header;
+        return new Header();
     }
 
     @Override
@@ -234,15 +229,12 @@ public class MainActivity extends FragmentActivity {
         if (drawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
-        switch (item.getItemId()) {
-            case R.id.menu_grid:
+        int id = item.getItemId();
+        if (id == R.id.menu_list) {
 
-                return true;
-            case R.id.menu_list:
-
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+            return true;
         }
+
+        return super.onOptionsItemSelected(item);
     }
 }
