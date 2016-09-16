@@ -1,18 +1,15 @@
 package com.example.phantom.onlineshop;
 
-import android.app.ActionBar;
-import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.phantom.onlineshop.models.Category;
 
-import org.w3c.dom.Text;
-
-public class CategoryActivity extends Activity {
+public class CategoryActivity extends AppCompatActivity {
     public static final String EXTRA_CATEGORY = "categoryNo";
     private TextView textView;
     private ImageView imageView;
@@ -27,9 +24,11 @@ public class CategoryActivity extends Activity {
     }
 
     private void initActionBar() {
-        ActionBar actionBar = getActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_detailed);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(true);
         }
     }
 

@@ -1,15 +1,15 @@
 package com.example.phantom.onlineshop;
 
-import android.app.Activity;
 import android.os.Bundle;
-
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.phantom.onlineshop.other.DataForDetailedActivity;
 import com.squareup.picasso.Picasso;
 
-public class DetailedActivity extends Activity {
+public class DetailedActivity extends AppCompatActivity {
     public static final String KEY_DATA = "DATA";
     private String name, weight, price, imageUrl, description;
     private TextView nameTv, weightTv, priceTv, descriptionTv;
@@ -22,6 +22,14 @@ public class DetailedActivity extends Activity {
         initViews();
         getParcelableExtra();
         initBinds();
+        initActionBar();
+    }
+
+    private void initActionBar() {
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                getSupportActionBar().setHomeButtonEnabled(true);
+            }
     }
 
     private void getParcelableExtra() {
