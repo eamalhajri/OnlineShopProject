@@ -175,10 +175,10 @@ public class MainActivity extends FragmentActivity {
             public void onClick(int position) {
                 switch (position) {
                     case 1:
-                        fragment = new ContactsFragment();
-                        break;
-                    default:
                         fragment = new TopFragment();
+                        break;
+                    case 2:
+                        fragment = new ContactsFragment();
                         break;
                 }
                 getSupportFragmentManager().beginTransaction()

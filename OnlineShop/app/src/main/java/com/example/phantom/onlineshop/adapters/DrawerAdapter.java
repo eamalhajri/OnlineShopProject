@@ -1,7 +1,6 @@
 package com.example.phantom.onlineshop.adapters;
 
 import android.content.Context;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +14,7 @@ import com.example.phantom.onlineshop.R;
 public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private String[] drawerTitles;
     private Listener listener;
-    private Header header;
+    Header header;
     Context context;
 
     private static final int TYPE_HEADER = 0;
@@ -50,10 +49,11 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof VHHeader) {
-            VHHeader VHheader = (VHHeader) holder;
+            //cast holder to VHHeader and set data for header.
         } else if (holder instanceof VHItem) {
             VHItem VHitem = (VHItem) holder;
-            VHitem.drawerName.setText(drawerTitles[position - 1]);
+            String drawerTitlesItem = getItem(position);
+            VHitem.drawerName.setText(drawerTitlesItem);
             VHitem.drawerName.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -63,6 +63,10 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 }
             });
         }
+    }
+
+    private String getItem(int position) {
+        return drawerTitles[position - 1];
     }
 
     @Override
@@ -87,7 +91,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         public VHItem(View v) {
             super(v);
             drawerTitles = itemView.getResources().getStringArray(R.array.drawer_titles);
-            this.drawerName = (TextView) itemView.findViewById(R.id.drawer_name);
+            drawerName = (TextView) itemView.findViewById(R.id.drawer_name);
         }
     }
 
@@ -97,9 +101,9 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         public VHHeader(View v) {
             super(v);
-            this.name = (TextView) itemView.findViewById(R.id.profile_name);
-            this.email = (TextView) itemView.findViewById(R.id.profile_email);
-            this.avatar = (ImageView) itemView.findViewById(R.id.profile_avatar);
+            name = (TextView) itemView.findViewById(R.id.header_name);
+            email = (TextView) itemView.findViewById(R.id.header_email);
+            avatar = (ImageView) itemView.findViewById(R.id.header_avatar);
         }
     }
 }
