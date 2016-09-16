@@ -6,15 +6,20 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.phantom.onlineshop.R;
 
 
-public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.RecyclerViewHolders> {
+public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private String[] drawerTitles;
     private Listener listener;
+    private Header header;
     Context context;
+
+    private static final int TYPE_HEADER = 0;
+    private static final int TYPE_ITEM = 1;
 
     public static interface Listener {
         public void onClick(int position);
@@ -24,45 +29,77 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.RecyclerVi
         this.listener = listener;
     }
 
-    public class RecyclerViewHolders extends RecyclerView.ViewHolder {
-        private CardView cardView;
-        private TextView drawerName;
-
-        public RecyclerViewHolders(View v) {
-            super(v);
-            cardView = (CardView) v;
-            drawerTitles = cardView.getResources().getStringArray(R.array.drawer_titles);
-            drawerName = (TextView) cardView.findViewById(R.id.drawer_name);
-        }
-    }
-
-    public DrawerAdapter(Context context, String[] drawerTitles) {
+    public DrawerAdapter(Context context, Header header, String[] drawerTitles) {
         this.context = context;
+        this.header = header;
         this.drawerTitles = drawerTitles;
     }
 
     @Override
-    public RecyclerViewHolders onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        View layoutView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.drawer_item, viewGroup, false);
-        return new RecyclerViewHolders(layoutView);
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+        if (viewType == TYPE_HEADER) {
+            View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.drawer_header, viewGroup, false);
+            return new VHHeader(v);
+        } else if (viewType == TYPE_ITEM) {
+            View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.drawer_item, viewGroup, false);
+            return new VHItem(v);
+        }
+        throw new RuntimeException("there is no type that matches the type " + viewType + " + make sure your using types correctly");
     }
 
     @Override
-    public void onBindViewHolder(RecyclerViewHolders holder, final int position) {
-        final CardView cardView = holder.cardView;
-        holder.drawerName.setText(drawerTitles[position]);
-        cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (listener != null) {
-                    listener.onClick(position);
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+        if (holder instanceof VHHeader) {
+            VHHeader VHheader = (VHHeader) holder;
+        } else if (holder instanceof VHItem) {
+            VHItem VHitem = (VHItem) holder;
+            VHitem.drawerName.setText(drawerTitles[position - 1]);
+            VHitem.drawerName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (listener != null) {
+                        listener.onClick(position);
+                    }
                 }
-            }
-        });
+            });
+        }
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (isPositionHeader(position))
+            return TYPE_HEADER;
+        return TYPE_ITEM;
+    }
+
+    private boolean isPositionHeader(int position) {
+        return position == 0;
     }
 
     @Override
     public int getItemCount() {
-        return drawerTitles.length;
+        return drawerTitles.length + 1;
+    }
+
+    public class VHItem extends RecyclerView.ViewHolder {
+        private TextView drawerName;
+
+        public VHItem(View v) {
+            super(v);
+            drawerTitles = itemView.getResources().getStringArray(R.array.drawer_titles);
+            this.drawerName = (TextView) itemView.findViewById(R.id.drawer_name);
+        }
+    }
+
+    class VHHeader extends RecyclerView.ViewHolder {
+        private TextView name, email;
+        private ImageView avatar;
+
+        public VHHeader(View v) {
+            super(v);
+            this.name = (TextView) itemView.findViewById(R.id.profile_name);
+            this.email = (TextView) itemView.findViewById(R.id.profile_email);
+            this.avatar = (ImageView) itemView.findViewById(R.id.profile_avatar);
+        }
     }
 }

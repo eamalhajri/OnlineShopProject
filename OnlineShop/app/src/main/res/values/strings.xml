@@ -1,7 +1,5 @@
 <resources>
-    <string name="app_name">Online Shop Beta</string>
-    <string name="action_settings">Settings</string>
-
+    <string name="app_name">Еда Онлайн</string>
     <string-array name="titles">
         <item>Салаты</item>
         <item>Супы</item>
@@ -37,4 +35,9 @@
     <string name="price_detailed">Цена: </string>
     <string name="description_detailed">Описание: </string>
     <string name="image">Картинка</string>
+    <string name="list">List</string>
+    <string name="grid">Grid</string>
+    <string name="drawer_item">drawer_item</string>
+    <string name="drawer_name">Aliaksandr Navumchyk</string>
+    <string name="drawer_email">studiophantomrecords@gmail.com</string>
 </resources>

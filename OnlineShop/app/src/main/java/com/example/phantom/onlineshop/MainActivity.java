@@ -14,11 +14,18 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ShareActionProvider;
 
 import com.example.phantom.onlineshop.adapters.DrawerAdapter;
+import com.example.phantom.onlineshop.adapters.Header;
 import com.example.phantom.onlineshop.database.Model;
+import com.example.phantom.onlineshop.database.ModelDatabase;
+import com.example.phantom.onlineshop.database.Model_Table;
 import com.example.phantom.onlineshop.fragments.ContactsFragment;
 import com.example.phantom.onlineshop.fragments.TopFragment;
 import com.example.phantom.onlineshop.models.Offer;
@@ -26,12 +33,17 @@ import com.example.phantom.onlineshop.models.OffersResponse;
 import com.example.phantom.onlineshop.notification.AlarmReceiver;
 import com.example.phantom.onlineshop.rest.ApiClient;
 import com.example.phantom.onlineshop.rest.ApiService;
+import com.raizlabs.android.dbflow.config.DatabaseDefinition;
 import com.raizlabs.android.dbflow.config.FlowConfig;
 import com.raizlabs.android.dbflow.config.FlowManager;
 import com.raizlabs.android.dbflow.sql.language.Delete;
+import com.raizlabs.android.dbflow.sql.language.Select;
+import com.raizlabs.android.dbflow.structure.database.DatabaseWrapper;
+import com.raizlabs.android.dbflow.structure.database.transaction.ITransaction;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -57,8 +69,22 @@ public class MainActivity extends FragmentActivity {
         setAlarmNotification();//every 24 hours thanks user for using our service
         //Have to check update parsing page to create option of downloading new data or receive it from our db
         //Looking for an answer
-        Delete.table(Model.class); //temporary line
-        initRestXML();
+//        Delete.table(Model.class);
+
+//temporary option, if db exist app just receive data from db, else download new data
+        DatabaseDefinition database = FlowManager.getDatabase(ModelDatabase.class);
+        database.executeTransaction(new ITransaction() {
+            @Override
+            public void execute(DatabaseWrapper databaseWrapper) {
+                List<Model> listModel = new Select()
+                        .from(Model.class)
+                        .queryList();
+                listModel.size();
+                if (listModel.size() == 0) {
+                    initRestXML();
+                }
+            }
+        });
     }
 
     public void setAlarmNotification() {
@@ -105,7 +131,6 @@ public class MainActivity extends FragmentActivity {
 //          weight = offerList.get(i).getParamMap().get("Вес");}
     }
 
-
     private void initViews() {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerTitles = getResources().getStringArray(R.array.drawer_titles);
@@ -143,7 +168,7 @@ public class MainActivity extends FragmentActivity {
     private void initDrawer() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         drawerRecyclerView.setLayoutManager(layoutManager);
-        DrawerAdapter adapter = new DrawerAdapter(this, drawerTitles);
+        DrawerAdapter adapter = new DrawerAdapter(this, getHeader(), drawerTitles);
         drawerRecyclerView.setAdapter(adapter);
         adapter.setListener(new DrawerAdapter.Listener() {
             @Override
@@ -177,6 +202,12 @@ public class MainActivity extends FragmentActivity {
             }
         };
         drawerLayout.addDrawerListener(drawerToggle);
+
+    }
+
+    public Header getHeader() {
+        Header header = new Header();
+        return header;
     }
 
     @Override
@@ -186,6 +217,13 @@ public class MainActivity extends FragmentActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+
+    @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         drawerToggle.onConfigurationChanged(newConfig);
@@ -193,6 +231,18 @@ public class MainActivity extends FragmentActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return drawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
+        if (drawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        switch (item.getItemId()) {
+            case R.id.menu_grid:
+
+                return true;
+            case R.id.menu_list:
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
