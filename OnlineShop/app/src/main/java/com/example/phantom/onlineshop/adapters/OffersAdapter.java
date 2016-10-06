@@ -62,8 +62,8 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.RecyclerVi
     public void onBindViewHolder(RecyclerViewHolders holder, final int position) {
         final CardView cardView = holder.cardView;
         holder.name.setText(offerList.get(position).getName());
-       holder.weight.setText(offerList.get(position).getWeight());
         holder.price.setText(offerList.get(position).getPrice());
+        holder.description.setText(offerList.get(position).getDescription());
         String imageUrl = offerList.get(position).getPicture();
         if (imageUrl.length() > 15) {
             Picasso.with(holder.imageView.getContext())

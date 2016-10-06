@@ -25,7 +25,7 @@
     <string name="address_cafe_3">г. Минск, ул. Воронянского, 31</string>
     <string name="number_str">Телефон: </string>
     <string name="imageIcon">imageIcon</string>
-    <string name="name">name</string>
+    <string name="name">offer_name</string>
     <string name="weight">weight</string>
     <string name="description">description</string>
     <string name="price">price</string>
@@ -40,4 +40,7 @@
     <string name="drawer_item">drawer_item</string>
     <string name="drawer_name">Aliaksandr Navumchyk</string>
     <string name="drawer_email">studiophantomrecords@gmail.com</string>
+    <string name="offer_description">offer_description</string>
+    <string name="offer_currency"> ₽</string>
+    <string name="name_of_category">Name of category</string>
 </resources>
