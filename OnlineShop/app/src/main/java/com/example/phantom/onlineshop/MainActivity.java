@@ -66,8 +66,8 @@ public class MainActivity extends AppCompatActivity {
         //Have to check update parsing page to create option of downloading new data or receive it from our db
         //Looking for an answer
 //        Delete.table(Model.class);
-
 //temporary option, if db exist app just receive data from db, else download new data
+
         DatabaseDefinition database = FlowManager.getDatabase(ModelDatabase.class);
         database.executeTransaction(new ITransaction() {
             @Override
