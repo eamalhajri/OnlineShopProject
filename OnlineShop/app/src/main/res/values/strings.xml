@@ -8,8 +8,12 @@
     </string-array>
 
     <string-array name="drawer_titles">
-        <item>Каталог</item>
-        <item>Контакты</item>
+        <item>Меню</item>
+        <item>Акции</item>
+        <item>Доставка</item>
+        <item>Оплата</item>
+        <item>Заказ по телефону</item>
+
     </string-array>
 
     <string name="hello_blank_fragment">hello</string>
@@ -29,7 +33,7 @@
     <string name="weight">weight</string>
     <string name="description">description</string>
     <string name="price">price</string>
-    <string name="adress_top">Адреса: </string>
+    <string name="address_top">Адреса: </string>
     <string name="categoryId">categoryId</string>
     <string name="weight_detailed">Вес: </string>
     <string name="price_detailed">Цена: </string>
@@ -43,4 +47,9 @@
     <string name="offer_description">offer_description</string>
     <string name="offer_currency"> ₽</string>
     <string name="name_of_category">Name of category</string>
+    <string name="ad_title">Сделать заказ</string>
+    <string name="ad_msg">+375(29)851-70-23</string>
+    <string name="ad_pos">ОК</string>
+    <string name="ad_neg">Отмена</string>
+
 </resources>

@@ -5,6 +5,10 @@
     android:orientation="vertical"
     tools:context=".CategoryActivity">
 
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
     <TextView
         android:id="@+id/category_text"
         android:layout_width="wrap_content"

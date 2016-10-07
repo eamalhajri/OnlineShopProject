@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -44,5 +45,11 @@ public class CategoryActivity extends AppCompatActivity {
         textView.setText(categoryName);
         imageView.setImageDrawable(ContextCompat.getDrawable(this, categoryImage));
         imageView.setContentDescription(categoryName);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        onBackPressed();
+        return true;
     }
 }

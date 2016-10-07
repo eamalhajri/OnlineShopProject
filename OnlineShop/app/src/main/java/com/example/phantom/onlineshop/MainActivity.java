@@ -1,10 +1,13 @@
 package com.example.phantom.onlineshop;
 
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
@@ -171,11 +174,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(int position) {
                 switch (position) {
-                    case 2:
+                    case 1:
+                        fragment = new TopFragment();
+                        break;
+                    case 3:
                         fragment = new ContactsFragment();
                         break;
-                    default:
-                        fragment = new TopFragment();
+                    case 5:
+                        alertDialog();
                         break;
                 }
                 getSupportFragmentManager().beginTransaction()
@@ -236,5 +242,31 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void alertDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.ad_title)
+                .setMessage(R.string.ad_msg)
+                .setCancelable(true)
+                .setIcon(R.drawable.phone)
+                .setPositiveButton(R.string.ad_pos, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int arg1) {
+                        String number = getString(R.string.number);
+                        Intent dialIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + number));
+                        startActivity(dialIntent);
+                    }
+                });
+        builder.setNegativeButton(R.string.ad_neg, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int arg1) {
+                dialog.cancel();
+            }
+        });
+        builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            public void onCancel(DialogInterface dialog) {
+                dialog.cancel();
+            }
+        });
+        builder.show();
     }
 }
