@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/name"
                 android:textColor="@color/colorFont"
-                android:textSize="21sp"
+                android:textSize="22sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -43,7 +43,7 @@
                 android:paddingTop="10dp"
                 android:text="@string/description"
                 android:textColor="@color/colorFont"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"

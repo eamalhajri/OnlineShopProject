@@ -27,6 +27,7 @@
     <string name="address_cafe_1">г. Минск, ул. Петра Глебки, 5</string>
     <string name="address_cafe_2">г. Минск, ул. Веры Хоружей, 8 </string>
     <string name="address_cafe_3">г. Минск, ул. Воронянского, 31</string>
+    <string name="address_cafe_4">г. Минск, ул. Энгельса, 16</string>
     <string name="number_str">Телефон: </string>
     <string name="imageIcon">imageIcon</string>
     <string name="name">offer_name</string>
@@ -51,5 +52,8 @@
     <string name="ad_msg">+375(29)851-70-23</string>
     <string name="ad_pos">ОК</string>
     <string name="ad_neg">Отмена</string>
+    <string name="minsk">Минск</string>
+    <string name="delivery">Доставка осуществляется круглосуточно за исключением технического перерыва с 05:00 до 07:00.</string>
+
 
 </resources>

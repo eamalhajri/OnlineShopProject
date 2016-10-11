@@ -25,7 +25,7 @@ import com.example.phantom.onlineshop.adapters.DrawerAdapter;
 import com.example.phantom.onlineshop.adapters.Header;
 import com.example.phantom.onlineshop.database.Model;
 import com.example.phantom.onlineshop.database.ModelDatabase;
-import com.example.phantom.onlineshop.fragments.ContactsFragment;
+import com.example.phantom.onlineshop.fragments.DeliveryFragment;
 import com.example.phantom.onlineshop.fragments.TopFragment;
 import com.example.phantom.onlineshop.models.Offer;
 import com.example.phantom.onlineshop.models.OffersResponse;
@@ -178,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new TopFragment();
                         break;
                     case 3:
-                        fragment = new ContactsFragment();
+                        fragment = new DeliveryFragment();
                         break;
                     case 5:
                         alertDialog();
