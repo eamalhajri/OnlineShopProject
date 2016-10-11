@@ -44,16 +44,28 @@ public class DeliveryFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap map) {
         LatLng city, address1, address2, address3, address4;
+        Marker cafe1, cafe2, cafe3, cafe4;
+        String adr1 = "г. Минск, ул. Петра Глебки, 5";
+        String adr2 = "г. Минск, ул. Веры Хоружей, 8";
+        String adr3 = "г. Минск, ул. Воронянского, 31";
+        String adr4 = "г. Минск, ул. Энгельса, 16";
+
         map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         city = new LatLng(53.903752, 27.564201);
         address1 = new LatLng(53.908757, 27.469890);
         address2 = new LatLng(53.920255, 27.577232);
         address3 = new LatLng(53.878631, 27.558539);
         address4 = new LatLng(53.900015, 27.562690);
-        map.addMarker(new MarkerOptions().position(address1).title("Закусочная №1").icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
-        map.addMarker(new MarkerOptions().position(address2).title("Закусочная №2").icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
-        map.addMarker(new MarkerOptions().position(address3).title("Закусочная №3").icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
-        map.addMarker(new MarkerOptions().position(address4).title("Закусочная №4").icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
+        float a = (float) 0.8;
+
+        cafe1 = map.addMarker(new MarkerOptions().position(address1).title("Закусочная №1").alpha(a).
+                icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)).snippet(adr1));
+        cafe2 = map.addMarker(new MarkerOptions().position(address2).title("Закусочная №2").alpha(a).
+                icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)).snippet(adr2));
+        cafe3 = map.addMarker(new MarkerOptions().position(address3).title("Закусочная №3").alpha(a).
+                icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)).snippet(adr3));
+        cafe4 = map.addMarker(new MarkerOptions().position(address4).title("Закусочная №4").alpha(a).
+                icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)).snippet(adr4));
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(city, 10));
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
