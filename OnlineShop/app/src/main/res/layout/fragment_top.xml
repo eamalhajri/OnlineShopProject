@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
-    tools:context=".MainActivity">
+    tools:context="com.example.phantom.onlineshop.MainActivity">
 
     <FrameLayout
         android:id="@+id/content_frame_top_frag"

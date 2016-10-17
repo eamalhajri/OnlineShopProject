@@ -28,10 +28,12 @@ public class TopFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        RelativeLayout layout = (RelativeLayout) inflater.inflate(R.layout.fragment_top, container, false);
+        RelativeLayout layout = (RelativeLayout) inflater.inflate(R.layout.fragment_top,
+                container, false);
         RecyclerView recyclerView = (RecyclerView) layout.findViewById(R.id.top_recycler);
 
         Context context = getActivity();
+
         String[] categoryNames = new String[NUMBERS_OF_CATEGORIES];
         for (int i = 0; i < NUMBERS_OF_CATEGORIES; i++) {
             categoryNames[i] = Category.categories[i].getName();
@@ -49,7 +51,7 @@ public class TopFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         adapter.setListener(new CategoriesAdapter.Listener() {
             public void onClick(int position) {
-               Bundle bundle = new Bundle();
+                Bundle bundle = new Bundle();
                 switch (position) {
                     case 0:
                         fragment = new CategoryListFragment();

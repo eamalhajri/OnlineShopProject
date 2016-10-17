@@ -25,7 +25,7 @@
             android:background="@color/cast_expanded_controller_ad_container_white_stripe_color"
             android:text="@string/name_of_category"
             android:textColor="@color/colorFont"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
     </LinearLayout>
